@@ -72,20 +72,23 @@ def c3():
 
     print(show, "\n")
 
+
 def c4():
     veces_jugadas = players_data[(players_data['Player Name'] == 'RONALDINHO')]
-    anios = veces_jugadas.merge(matches_data, left_on="MatchID", right_on="MatchID")["Year"].unique()
-    print(anios)
-
-
+    aniosjugados = []
+    for id in veces_jugadas["MatchID"]:
+        anio = matches_data[matches_data["MatchID"] == id]["Year"].values[0]
+        if anio not in aniosjugados:
+            aniosjugados.append(anio)
     como_suplente = players_data[(players_data['Player Name'] == 'RONALDINHO') & (players_data['Line-up'] == 'N')]
 
-    cant = len(veces_jugadas)
+    cant = len(aniosjugados)
     cSup = len(como_suplente)
     print(veces_jugadas.to_string())
     print(f"RONALDINHO Participo {cant} veces al mundial")
     print(f"RONALDINHO Participo como suplente {cSup} veces al mundial")
 
+    
 
 c1()
 c2()
