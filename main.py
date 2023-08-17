@@ -75,7 +75,7 @@ def c4():
 
     cant = len(cant_mund_jug)
     cSup = len(como_suplente)
-    print(cant_mund_jug)
+    print(cant_mund_jug.to_string())
     print(f"RONALDINHO Participo {cant} veces al mundial")
     print(f"RONALDINHO Participo como suplente {cSup} veces al mundial")
 
