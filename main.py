@@ -70,12 +70,16 @@ def c3():
     print(show, "\n")
 
 def c4():
-    cant_mund_jug = players_data[(players_data['Player Name'] == 'RONALDINHO')]
+    veces_jugadas = players_data[(players_data['Player Name'] == 'RONALDINHO')]
+    anios = veces_jugadas.merge(matches_data, left_on="MatchID", right_on="MatchID")["Year"].unique()
+    print(anios)
+
+
     como_suplente = players_data[(players_data['Player Name'] == 'RONALDINHO') & (players_data['Line-up'] == 'N')]
 
-    cant = len(cant_mund_jug)
+    cant = len(veces_jugadas)
     cSup = len(como_suplente)
-    print(cant_mund_jug.to_string())
+    print(veces_jugadas.to_string())
     print(f"RONALDINHO Participo {cant} veces al mundial")
     print(f"RONALDINHO Participo como suplente {cSup} veces al mundial")
 
