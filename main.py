@@ -1,10 +1,11 @@
 import pandas as pd
 
 matches_data = pd.read_csv("WorldCupMatches.csv")
+# Contiene Year, Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
+
 worldcups_data = pd.read_csv("WorldCups.csv")
+
 players_data = pd.read_csv("WorldCupPlayers.csv")
-
-
 
 def c1():
     result = matches_data[(matches_data["Away Team Name"] == "Ecuador") | (matches_data["Home Team Name"] == "Ecuador")]
@@ -38,17 +39,8 @@ def c3():
 
 def c4():
     # c4.1
-    appearances = players_data[players_data["Player Name"] == "RONALDINHO"]
-    matches = list(set(appearances["MatchID"].tolist()))
-    debut = matches_data[matches_data["MatchID"] == matches[0]]
-    debut_year = debut["Year"].tolist()
-    print(f"C4. Ronaldinho debutó en {int(debut_year[0])} y participó en ")
 
-    app_suplente = appearances[appearances["Line-up"] == "N"]
-    supID = list(set(app_suplente["MatchID"].tolist()))
-    debut_sup = matches_data[(matches_data["MatchID"] == supID[0]) | (matches_data["MatchID"] == supID[1])]
-    print(debut_sup.to_string())
-
+    # c4.2
 
 
 c1()
