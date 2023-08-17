@@ -36,9 +36,22 @@ def c3():
     result = winner.tolist()
     print(f"C3. El ganador de la Copa del Mundo en 2004 fue {result[0]}")
 
+def c4():
+    # c4.1
+    appearances = players_data[players_data["Player Name"] == "RONALDINHO"]
+    matches = list(set(appearances["MatchID"].tolist()))
+    debut = matches_data[matches_data["MatchID"] == matches[0]]
+    debut_year = debut["Year"].tolist()
+    print(f"C4. Ronaldinho debutó en {int(debut_year[0])} y participó en ")
+
+    app_suplente = appearances[appearances["Line-up"] == "N"]
+    supID = list(set(app_suplente["MatchID"].tolist()))
+    debut_sup = matches_data[(matches_data["MatchID"] == supID[0]) | (matches_data["MatchID"] == supID[1])]
+    print(debut_sup.to_string())
 
 
 
 c1()
 c2()
 c3()
+c4()
