@@ -1,41 +1,73 @@
 import pandas as pd
 
 matches_data = pd.read_csv("WorldCupMatches.csv")
-# Contiene Year, Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
 
 worldcups_data = pd.read_csv("WorldCups.csv")
 
 players_data = pd.read_csv("WorldCupPlayers.csv")
 
+
 def c1():
     result = matches_data[(matches_data["Away Team Name"] == "Ecuador") | (matches_data["Home Team Name"] == "Ecuador")]
     years = result["Year"].tolist()
     # print(result.to_string())
-    rpta = list(set(years))
+    rpta = sorted(list(set(years)))
+
     print("C1. Ecuador participó en los años: ", end="")
     for i in range(len(rpta)):
         print(int(rpta[i]), end="")
         if i != (len(rpta) - 1):
             print(", ", end="")
 
+    print("\n")
 
-    print("")
+    show = pd.DataFrame(result).drop_duplicates(subset="Year", keep="first").loc[:, ["Year", "Home Team Name", "Away Team Name"]]
+    print(show, "\n")
 
 
 def c2():
-    brazil_argentina_matchess = matches_data[
+    brazil_argentina_matches = matches_data[
         ((matches_data['Home Team Name'] == 'Argentina') & (matches_data['Away Team Name'] == 'Brazil')) |
         ((matches_data['Home Team Name'] == 'Brazil') & (matches_data['Away Team Name'] == 'Argentina'))
         ]
 
-    cant = len(brazil_argentina_matchess)
-    # print(brazil_argentina_matchess)
-    print(f"C2. Se enfrentaron {cant} veces")
+    cant = len(brazil_argentina_matches)
+    # print(brazil_argentina_matches)
+    print(f"C2. Se enfrentaron {cant} veces\n")
+
+    show = pd.DataFrame(brazil_argentina_matches).drop_duplicates(subset="Year", keep="first").loc[:, ["Year", "Home Team Name", "Away Team Name"]]
+    print(show, "\n")
+
 
 def c3():
-    winner = worldcups_data[(worldcups_data["Year"] == 2010)]["Winner"]
-    result = winner.tolist()
-    print(f"C3. El ganador de la Copa del Mundo en 2004 fue {result[0]}")
+    show_winner = pd.DataFrame(worldcups_data[(worldcups_data["Year"] == 2010)].loc[:, ["Year", "Country", "Winner"]])
+    consulta_winner = show_winner["Winner"]
+    winner = consulta_winner.tolist()
+    winner = str(winner[0])  # spain
+
+    # year = 2010, stage = final, match id = 300061509
+    # team initials ESP, search for Player Name
+
+    consulta_id = matches_data[(matches_data["Year"] == 2010) & (matches_data["Stage"] == "Final")]
+    consulta_id = consulta_id["MatchID"].tolist()[0]
+
+    teamtable = players_data[(players_data["Team Initials"] == "ESP") & (players_data["MatchID"] == consulta_id) & (players_data["Line-up"] == "S")]
+    show = pd.DataFrame(teamtable).drop_duplicates(subset="Player Name", keep="first").loc[:, ["Team Initials", "Player Name", "Line-up"]]
+
+    print(f"C3.1. El ganador de la Copa del Mundo en 2004 fue {winner}\n")
+    print(show_winner, "\n")
+
+    print("C3.2. Los 11 jugadores titulares fueron: ")
+    teamlist = teamtable["Player Name"].tolist()
+
+    for i in range(len(teamlist)):
+        print(teamlist[i], end="")
+        if i != (len(teamlist) - 1):
+            print(", ", end="")
+
+    print("\n")
+
+    print(show, "\n")
 
 def c4():
     cant_mund_jug = players_data[(players_data['Player Name'] == 'RONALDINHO')]
