@@ -38,9 +38,14 @@ def c3():
     print(f"C3. El ganador de la Copa del Mundo en 2004 fue {result[0]}")
 
 def c4():
-    # c4.1
+    cant_mund_jug = players_data[(players_data['Player Name'] == 'RONALDINHO')]
+    como_suplente = players_data[(players_data['Player Name'] == 'RONALDINHO') & (players_data['Line-up'] == 'N')]
 
-    # c4.2
+    cant = len(cant_mund_jug)
+    cSup = len(como_suplente)
+    print(cant_mund_jug)
+    print(f"RONALDINHO Participo {cant} veces al mundial")
+    print(f"RONALDINHO Participo como suplente {cSup} veces al mundial")
 
 
 c1()
