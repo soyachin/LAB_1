@@ -10,7 +10,9 @@ players_data = pd.read_csv("WorldCupPlayers.csv")
 def c1():
     result = matches_data[(matches_data["Away Team Name"] == "Ecuador") | (matches_data["Home Team Name"] == "Ecuador")]
     years = result["Year"].tolist()
-    # print(result.to_string())
+    colum_mos = ["Year", "Away Team Name", "Home Team Name"]
+    pp = result[colum_mos]
+    print(pp.to_string())
     rpta = sorted(list(set(years)))
 
     print("C1. Ecuador participó en los años: ", end="")
@@ -32,9 +34,10 @@ def c2():
         ]
 
     cant = len(brazil_argentina_matches)
-    # print(brazil_argentina_matches)
+    colum_mos = ["Year", "Away Team Name", "Home Team Name"]
+    pp = brazil_argentina_matchess[colum_mos]
+    print(pp.to_string())
     print(f"C2. Se enfrentaron {cant} veces\n")
-
     show = pd.DataFrame(brazil_argentina_matches).drop_duplicates(subset="Year", keep="first").loc[:, ["Year", "Home Team Name", "Away Team Name"]]
     print(show, "\n")
 
